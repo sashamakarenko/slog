@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "test-SingleFileStreams",
+            "type": "shell",
+            "command": "make test-SingleFileStreams BUILD_MODE=debug",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "test-ThreadedStreams",
+            "type": "shell",
+            "command": "make test-ThreadedStreams BUILD_MODE=debug",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "test-StreamChannel",
+            "type": "shell",
+            "command": "make test-StreamChannel BUILD_MODE=debug",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "test-MuteChannel",
+            "type": "shell",
+            "command": "make test-MuteChannel",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "test-Options",
+            "type": "shell",
+            "command": "make test-Options",
+            "problemMatcher": [],
+            "group": "build"
+        }
+    ]
+}
