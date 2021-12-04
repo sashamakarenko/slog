@@ -5,5 +5,10 @@ PRJ_TYPE    := lib
 
 SRCSUBDIRS = impl
 LINK_EXTRA_LIBS = -lpthread
+TEST_EXTRA_LINK_LIBS = -lpthread
 
-include ../makefile/Makefile
+-include ../makefile/Makefile
+
+../makefile/Makefile:
+	@echo "cloning makefile..."
+	@cd ..; git clone https://github.com/sashamakarenko/makefile.git makefile
