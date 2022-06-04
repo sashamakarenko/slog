@@ -100,3 +100,6 @@ $> cd slog
 $> make
 $> make check
 ```
+
+[![HitCount](https://hits.dwyl.com/sashamakarenko/slog.svg?style=flat)](http://hits.dwyl.com/sashamakarenko/slog)
+
