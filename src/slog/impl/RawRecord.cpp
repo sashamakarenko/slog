@@ -96,16 +96,18 @@ void RawRecord::toAscii( std::ostream & os )
                 }
             case ArgType::Float      :
                 {
-                    const float * ptr = reinterpret_cast< const float * >( & _buf[pos] );
-                    os << *ptr;
-                    pos += sizeof(float);
+                    float value;
+                    memcpy( &value, & _buf[pos], sizeof(value) );
+                    os << value;
+                    pos += sizeof(value);
                     break;
                 }
             case ArgType::Double     :
                 {
-                    const double * ptr = reinterpret_cast< const double * >( & _buf[pos] );
-                    os << *ptr;
-                    pos += sizeof(double);
+                    double value;
+                    memcpy( &value, & _buf[pos], sizeof(value) );
+                    os << value;
+                    pos += sizeof(value);
                     break;
                 }
             case ArgType::CharPtr    :

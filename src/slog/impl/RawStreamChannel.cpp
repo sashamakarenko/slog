@@ -80,8 +80,8 @@ void RawStreamChannel::asyncWriteRecord( Record::Ptr rec )
     RawRecord * srec = static_cast< RawRecord * >( rec.get() );
     {
         auto & s = fmt and isLevelReached( Level::WARNING,  fmt->getLevel() ) ? _err : _out; 
-        saveFormat( s, fmt );
         std::scoped_lock< std::mutex > protectStream( _mtx );
+        saveFormat( s, fmt );
         insertLogPrefix( s, *srec );
         srec->toAscii( s );
         s << std::endl;

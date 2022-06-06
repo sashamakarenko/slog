@@ -77,7 +77,7 @@ void StreamChannel::asyncWriteRecord( Record::Ptr rec )
     Level lvl = fmt ? fmt->getLevel() : getLoglevel();
     StrStreamRecord * srec = static_cast< StrStreamRecord * >( rec.get() );
     {
-        auto & s = fmt and isLevelReached( Level::WARNING,  fmt->getLevel() ) ? _err : _out; 
+        auto & s = fmt and isLevelReached( Level::WARNING,  fmt->getLevel() ) ? _err : _out;
         std::scoped_lock< std::mutex > protectStream( _mtx );
         insertLogPrefix( s, *srec );
         s << srec->getString() << '\n';

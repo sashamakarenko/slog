@@ -27,7 +27,7 @@ void logAllMessages( slog::Channel & channel )
     channel.log<AllIntTypes>( 'a', (short)16, 32, 64L, (unsigned char)'b', (unsigned short)17, 33U, 65UL );
     std::this_thread::sleep_for(std::chrono::microseconds(10));
 
-    channel.log( slog::Level::ERROR, "unknown account:", "acc1", " limited qty:", 10, " bad px:", 1.23 );
+    channel.log( slog::Level::ERROR, "unknown account:", (short)2, " acc", '1', " limited qty:", 10L, " bad px:", 1.23f );
     std::this_thread::sleep_for(std::chrono::microseconds(10));
 
     channel.trace( "this is a trace:", 10, " float:", 1.23f );

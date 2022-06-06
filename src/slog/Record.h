@@ -109,7 +109,13 @@ inline slog::Record & operator << ( slog::Record & rec, const T & value )
     return rec;
 }
 
-inline slog::PermanentCharPtr operator "" _pcp( const char * ptr, long unsigned ){ return slog::PermanentCharPtr( ptr ); }
+#if __arm__ == 1
+#define PCP_TYPE unsigned int
+#else
+#define PCP_TYPE unsigned long
+#endif
+
+inline slog::PermanentCharPtr operator "" _pcp( const char * ptr, PCP_TYPE ){ return slog::PermanentCharPtr( ptr ); }
 
 inline std::ostream & operator << ( std::ostream & os, const slog::PermanentCharPtr & ptr )
 {
