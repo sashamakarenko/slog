@@ -31,7 +31,7 @@ class Options
 {
     public:
 
-        using Value = typename std::variant< bool, char, int, long, std::string, Level >;
+        using Value = typename std::variant< bool, char, int, long, std::string, Level, Options >;
 
         Options() = default;
 

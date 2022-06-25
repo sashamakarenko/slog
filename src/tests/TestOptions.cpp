@@ -9,12 +9,12 @@
 
 int main( int args, const char ** argv )
 {
-    slog::Options opts = { { "init.str", "init.value" } };
+    slog::Options opts = { { "init.str", std::string("init.value") }, { "node", slog::Options{ { "a", 1 }, { "b", 2 } } }  };
     opts.put<bool>( "bool", true );
     opts.put<char>( "char", 'c' );
     opts.put<int> ( "int" , 1 );
     opts.put<long>( "long", 2 );
-    opts.put<std::string>( "string", "str" );
+    opts.put<std::string>( "string", std::string("str") );
     opts.put<slog::Level>( "level", slog::Level::MUTE );
 
     CHECK( "init.str", opts.get<std::string>("init.str"), == "init.value" )
@@ -28,5 +28,8 @@ int main( int args, const char ** argv )
     CHECK( "long", opts.get<long>("long"), == 2 )
     CHECK( "string", opts.get<std::string>("string"), == "str" )
     CHECK( "level", opts.get<slog::Level>("level"), == slog::Level::MUTE )
+
+    const slog::Options & node = opts.get<slog::Options>( "node" );
+    CHECK( "node.int", node.get<int>("a"), == 1 )
 
 }
