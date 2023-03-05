@@ -96,7 +96,7 @@ void RawStreamChannel::insertLogPrefix( std::ostream & os, RawRecord & rec )
     auto usecs = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()).count() % 1000000LU;
     const Format * fmt = rec.getFormat();
     Level lvl = fmt ? fmt->getLevel() : getLoglevel();
-    os << '\1' << slog::to_char( lvl ) << ' ';
+    os << RawRecord::PREFIX_START_CHAR << slog::to_char( lvl ) << ' ';
     os << std::put_time(std::localtime(&t_c), "%F %T.") << std::setfill('0') << std::setw(6) << usecs;
     if( _logThreadId )
     {
@@ -109,7 +109,7 @@ void RawStreamChannel::insertLogPrefix( std::ostream & os, RawRecord & rec )
     const char * id = fmt->getId().data();
     if( id[0] ) os << id[0];
     if( id[1] ) os << id[1];
-    os << "\2 ";
+    os << RawRecord::PREFIX_STOP_CHAR << ' ';
 }
 
 RawRecord * RawStreamChannel::newRecord( const Format * fmt )
@@ -121,7 +121,7 @@ bool RawStreamChannel::saveFormat( std::ostream & os, const Format * fmt )
 {
     if( _knownFormats.insert( fmt->getId() ).second )
     {
-        os << "\1F " << getId() << ' ';
+        os << RawRecord::PREFIX_START_CHAR << "F " << getId() << ' ';
         const char * id = fmt->getId().data();
         if( id[0] ) os << id[0];
         if( id[1] ) os << id[1];

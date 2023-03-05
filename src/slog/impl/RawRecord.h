@@ -17,7 +17,7 @@ class RawRecord: public Record
         RawRecord( Channel & channel, const Format * fmt );
 
         virtual ~RawRecord();
-    
+
         virtual void insert( char             arg ) override;
         virtual void insert( short            arg ) override;
         virtual void insert( int              arg ) override;
@@ -31,6 +31,7 @@ class RawRecord: public Record
         virtual void insert( const char *     arg ) override;
         virtual void insert( const PermanentCharPtr & arg ) override;
         virtual void insert( const std::string &      arg ) override;
+        virtual void insert( const std::string_view & arg ) override;
 
         virtual void prepare() override;
 
@@ -45,6 +46,9 @@ class RawRecord: public Record
         {
             _threadId = tid;
         }
+
+        static constexpr char PREFIX_START_CHAR = '\1';
+        static constexpr char PREFIX_STOP_CHAR  = '\2';
 
     private:
 

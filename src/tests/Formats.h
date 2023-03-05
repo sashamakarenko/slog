@@ -14,6 +14,9 @@ typedef slog::Message< & NoArgsMessageFmt > NoArgsMessage;
 extern slog::Format ShowUserFmt;
 typedef slog::Message< & ShowUserFmt, const char * > ShowUser;
 
+extern slog::Format ShowAccountFmt;
+typedef slog::Message< & ShowAccountFmt, std::string_view > ShowAccount;
+
 extern slog::Format PermamemtCharPanicFmt;
 typedef slog::Message< & PermamemtCharPanicFmt, slog::PermanentCharPtr > PermanentString;
 

@@ -29,7 +29,8 @@ enum class ArgType: uint16_t
     Double,
     CharPtr,
     PermCharPtr,
-    String
+    String,
+    StringView
 };
 
 template<typename T> constexpr ArgType getArgType();
@@ -47,6 +48,7 @@ template<> constexpr ArgType getArgType< double                   >(){ return Ar
 template<> constexpr ArgType getArgType< const char *             >(){ return ArgType::CharPtr    ; }
 template<> constexpr ArgType getArgType< PermanentCharPtr         >(){ return ArgType::PermCharPtr; }
 template<> constexpr ArgType getArgType< std::string              >(){ return ArgType::String     ; }
+template<> constexpr ArgType getArgType< std::string_view         >(){ return ArgType::StringView ; }
 
 class Channel;
 
@@ -69,6 +71,7 @@ class Record
         virtual void insert( const char *             arg ) = 0;
         virtual void insert( const PermanentCharPtr & arg ) = 0;
         virtual void insert( const std::string &      arg ) = 0;
+        virtual void insert( const std::string_view & arg ) = 0;
 
         virtual void prepare();
         virtual void reset();

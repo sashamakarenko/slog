@@ -31,6 +31,7 @@ class StreamRecord: public Record
         virtual void insert( const char *     arg ) override;
         virtual void insert( const PermanentCharPtr & arg ) override;
         virtual void insert( const std::string &      arg ) override;
+        virtual void insert( const std::string_view & arg ) override;
 
         virtual void prepare() override;
 

@@ -112,6 +112,7 @@ void RawRecord::toAscii( std::ostream & os )
                 }
             case ArgType::CharPtr    :
             case ArgType::String     :
+            case ArgType::StringView :
                 {
                     const std::size_t * ptr = reinterpret_cast< const std::size_t * >( & _buf[pos] );
                     os << & _buf[pos+sizeof(std::size_t)];
@@ -229,5 +230,9 @@ void RawRecord::insert( const std::string &      arg )
     push( _buf, arg );
 }
 
+void RawRecord::insert( const std::string_view & arg )
+{
+    push( _buf, arg );
+}
     
 }

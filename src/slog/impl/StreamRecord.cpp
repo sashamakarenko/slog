@@ -124,5 +124,10 @@ void StreamRecord::insert( const std::string &      arg )
     insertNextFormatFragment();
 }
 
+void StreamRecord::insert( const std::string_view & arg )
+{
+    _stream << arg;
+    insertNextFormatFragment();
+}
     
 }
