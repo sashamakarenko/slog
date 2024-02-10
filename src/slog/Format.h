@@ -3,6 +3,7 @@
 #define SLOG_FORMAT_H
 
 #include <slog/Level.h>
+#include <cstdint>
 
 namespace slog
 {
