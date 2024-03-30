@@ -11,17 +11,17 @@
 namespace slog::impl
 {
 
-StreamChannel::StreamChannel( ChannelFactory & factory, const std::string & id, std::ostream & out, std::ostream & err, std::mutex & mtx, const Options & options ):
-    Channel( factory, id, options.get<Level>( OPT_LOG_LEVEL, Level::INFO ) ),
-    _out{ out },
-    _err{ err },
-    _mtx{ mtx },
-    _outSyncRecord{ *this, getFreeformFormat( Level::INFO  ), _out },
-    _errSyncRecord{ *this, getFreeformFormat( Level::ERROR ), _err },
-    _recUnlocker{ _mtx },
-    _async{ options.get<bool>( OPT_ASYNC, false ) },
-    _logChannelName{ options.get<bool>( OPT_LOG_CHANNEL_NAME, false ) },
-    _logThreadId{ options.get<bool>( OPT_LOG_THREAD_PID, false ) }
+StreamChannel::StreamChannel( ChannelFactory & factory, const std::string & id, std::ostream & out, std::ostream & err, std::mutex & mtx, const Options & options )
+: Channel( factory, id, options.get<Level>( OPT_LOG_LEVEL, Level::INFO ) )
+, _async{ options.get<bool>( OPT_ASYNC, false ) }
+, _logChannelName{ options.get<bool>( OPT_LOG_CHANNEL_NAME, false ) }
+, _logThreadId{ options.get<bool>( OPT_LOG_THREAD_PID, false ) }
+, _out{ out }
+, _err{ err }
+, _mtx{ mtx }
+, _outSyncRecord{ *this, getFreeformFormat( Level::INFO  ), _out }
+, _errSyncRecord{ *this, getFreeformFormat( Level::ERROR ), _err }
+, _recUnlocker{ _mtx }
 {
     int poolSize = options.get<int>( OPT_INITIAL_RECORD_POOL_SIZE, 10 );
     for( int i = 0; i < poolSize; ++i )
@@ -30,7 +30,7 @@ StreamChannel::StreamChannel( ChannelFactory & factory, const std::string & id, 
     }
 }
 
-StreamChannel::~StreamChannel() 
+StreamChannel::~StreamChannel()
 {
 }
 
@@ -74,7 +74,6 @@ void StreamChannel::writeRecord( Record::Ptr rec )
 void StreamChannel::asyncWriteRecord( Record::Ptr rec )
 {
     const Format * fmt = rec->getFormat();
-    Level lvl = fmt ? fmt->getLevel() : getLoglevel();
     StrStreamRecord * srec = static_cast< StrStreamRecord * >( rec.get() );
     {
         auto & s = fmt and isLevelReached( Level::WARNING,  fmt->getLevel() ) ? _err : _out;

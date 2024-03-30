@@ -17,19 +17,16 @@ int main( int args, const char ** argv )
     opts.put<std::string>( "string", std::string("str") );
     opts.put<slog::Level>( "level", slog::Level::MUTE );
 
-    CHECK( "init.str", opts.get<std::string>("init.str"), == "init.value" )
-
-    CHECK( "bool", opts.get<bool>("bool",false), == true )
-    CHECK( "has bool", opts.has("bool"), == true )
-    CHECK( "has xbool", opts.has("xbool"), == false )
-
-    CHECK( "char", opts.get<char>("char"), == 'c' )
-    CHECK( "int", opts.get<int>("int"), == 1 )
-    CHECK( "long", opts.get<long>("long"), == 2 )
-    CHECK( "string", opts.get<std::string>("string"), == "str" )
-    CHECK( "level", opts.get<slog::Level>("level"), == slog::Level::MUTE )
+    CHECK( init.str, opts.get<std::string>("init.str"), == "init.value" )
+    CHECK( bool, opts.get<bool>("bool",false), == true )
+    CHECK( has bool, opts.has("bool"), == true )
+    CHECK( has xbool, opts.has("xbool"), == false )
+    CHECK( char, opts.get<char>("char"), == 'c' )
+    CHECK( int, opts.get<int>("int"), == 1 )
+    CHECK( long, opts.get<long>("long"), == 2 )
+    CHECK( string, opts.get<std::string>("string"), == "str" )
+    CHECK( level, opts.get<slog::Level>("level"), == slog::Level::MUTE )
 
     const slog::Options & node = opts.get<slog::Options>( "node" );
-    CHECK( "node.int", node.get<int>("a"), == 1 )
-
+    CHECK( node.int, node.get<int>("a"), == 1 )
 }

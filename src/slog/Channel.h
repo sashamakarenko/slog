@@ -28,10 +28,22 @@ class Channel: public std::enable_shared_from_this<Channel>
             {
                 return;
             }
-            
+
             Record::Ptr rec = createRecord( Msg::getFormat() );
             //( rec->insert(args), ... );
             ( *rec.get() << ... << args );
+            writeRecord( rec );
+        }
+
+        template< typename Msg >
+        void log()
+        {
+            if( not isLevelReached( _level, Msg::getLevel() ) )
+            {
+                return;
+            }
+
+            Record::Ptr rec = createRecord( Msg::getFormat() );
             writeRecord( rec );
         }
 
@@ -42,7 +54,7 @@ class Channel: public std::enable_shared_from_this<Channel>
             {
                 return;
             }
-            
+
             Record::Ptr rec = createRecord( getFreeformFormat( lvl ) );
             ( *rec.get() << ... << args );
             writeRecord( rec );
@@ -92,7 +104,7 @@ class Channel: public std::enable_shared_from_this<Channel>
         Channel() = delete;
 
         Channel( const Channel & ) = delete;
-    
+
         virtual void asyncWriteRecord( Record::Ptr rec );
 
         static const Format * getFreeformFormat( Level lvl );

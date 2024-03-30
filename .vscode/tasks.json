@@ -2,6 +2,13 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build all tests (debug)",
+            "type": "shell",
+            "command": "make build-all-tests BUILD_MODE=debug",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
             "label": "test-SingleFileStreams",
             "type": "shell",
             "command": "make test-SingleFileStreams BUILD_MODE=debug",

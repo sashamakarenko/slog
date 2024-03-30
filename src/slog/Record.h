@@ -93,7 +93,11 @@ class Record
 
     protected:
 
-        explicit Record( Channel & channel, const Format * fmt ): _channel{ channel }, _format{ fmt }{}
+        explicit Record( Channel & channel, const Format * fmt )
+        : _format{ fmt }
+        , _channel{ channel } 
+        {
+        }
 
         virtual ~Record();
     
